@@ -26,8 +26,23 @@
     </header>
 
     <main>
-        <section id="quiz">
-            <button id="start">Start!</button>
+        <section>
+            <div class="quiz">
+                <button id="start">Start!</button>
+                <div id="quiz-questions" class="hide">
+                    <div id="question">Question</div>
+                    <div id="answers" class="answer-selections">
+                        <button class="answer-btn">Answer 1</button>
+                        <button class="answer-btn">Answer 2</button>
+                        <button class="answer-btn">Answer 3</button>
+                        <button class="answer-btn">Answer 4</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-timer"></div>
+
+            <div class="results"></div>
         </section>
     </main>
 
