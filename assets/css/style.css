@@ -1,0 +1,54 @@
+/* Main colours, formatting and styling throughout website */
+:root {
+    --dark-color: #184F10;
+    --light-color: #fff;
+    --highlight-color: #39FF32;
+    --button-color: #499917;
+    --button-hover: #72F024;
+    --main-text-color: #000;
+    --main-font-family: 'Inter', sans-serif;
+    --heading-font-family: 'Fredoka One', cursive;
+}
+
+/* Highlight color and background */
+::selection {
+    background-color: var(--highlight-color);
+    color: var(--dark-color);
+}
+
+/* Body element selector */
+body {
+    background-color: var(--light-color);
+}
+
+/* Header element styling */
+header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 40px;
+    background-color: var(--dark-color);
+    font-family: var(--main-font-family);
+    justify-content: center;
+}
+
+/* H1 styling */
+h1 {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 64px;
+    color: var(--light-color);
+    font-family: var(--heading-font-family);
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+
+/* Paragraph element styling in header */
+
+header p {
+    color: var(--light-color);
+    line-height: 1.5rem;
+    text-align: center;
+    font-size: 18px;
+}
