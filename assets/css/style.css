@@ -54,7 +54,7 @@ header p {
 }
 
 /* Section 'Quiz' selector */
-#quiz {
+.quiz {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -77,4 +77,9 @@ header p {
 
 #start:hover {
     background-color: var(--button-hover);
+}
+
+/* Using hide class to hide temporarily hide question and answers */
+.hide {
+    display: none;
 }
