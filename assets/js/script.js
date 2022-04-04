@@ -2,10 +2,11 @@ var quiz = document.querySelector(".quiz");
 var startBtn = document.getElementById("start");
 var timerElement = document.querySelector(".quiz-timer");
 var savedResults = document.querySelector(".results");
-var quizQuestions = document.getElementById("quiz-questions")
-
+var questionContainer = document.getElementById("question-container");
+var answerContainer = document.getElementById("answer-container");
 var quizScore = 0;
 var secondsLeft = 60;
+var currentQuestionIndex = 0;
 
 // Array of questions that will be asked and the correct answers
 var quizQuestions = [
@@ -31,11 +32,15 @@ var quizQuestions = [
     }
 ];
 
+
+
 // Testing start button functionality
 function generateQuiz() {
     startTimer();
+    startBtn.classList.add("hide");
+    displayQuestion();
     console.log("This works!")
-}
+};
 
 // When start button is pressed, the timer begins and starts to count down
 function startTimer() {
@@ -48,8 +53,26 @@ function startTimer() {
             console.log("Times up")
         }
     }, 1000);
-}
+};
 
+function displayQuestion() {
+    var questionEl = document.createElement("p");
+    questionEl.textContent = quizQuestions[currentQuestionIndex].question;
+    questionContainer.appendChild(questionEl);
+    var answerText = "";
+    for (var key in quizQuestions[currentQuestionIndex].answers) {
+        answerText += quizQuestions[currentQuestionIndex].answers[key];
+    }
+    var answerEl = document.createElement("li");
+    answerEl.textContent = answerText;
+    answerContainer.appendChild(answerEl);
+};
+
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    displayQuestion();
+}
 
 
 startBtn.addEventListener("click", generateQuiz);
