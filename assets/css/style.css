@@ -62,9 +62,6 @@ header p {
 
 /* Start button styling */
 #start {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     background-color: var(--button-color);
     color: var(--light-color);
     margin: 30px;
