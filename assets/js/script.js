@@ -61,11 +61,11 @@ function displayQuestion() {
     questionContainer.appendChild(questionEl);
     var answerText = "";
     for (var key in quizQuestions[currentQuestionIndex].answers) {
-        answerText += quizQuestions[currentQuestionIndex].answers[key];
+        answerText = quizQuestions[currentQuestionIndex].answers[key];
+        var answerEl = document.createElement("li");
+        answerEl.textContent = answerText;
+        answerContainer.appendChild(answerEl);
     }
-    var answerEl = document.createElement("li");
-    answerEl.textContent = answerText;
-    answerContainer.appendChild(answerEl);
 };
 
 
