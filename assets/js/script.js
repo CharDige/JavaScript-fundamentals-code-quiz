@@ -38,10 +38,25 @@ var quizQuestions = [
             c: "Objects iterate over arrays",
             d: "Objects replace variable names and returns new strings"
         },
+    },
+    {
+        question: "Example question",
+        answers: {
+            a: "example 1",
+            b: "example 2",
+            c: "example 3",
+            d: "example 4",
+        }
     }
+
 ];
 
 console.log(quizScore);
+
+// init function is called when the page loads
+function init() {
+    getScore();
+}
 
 // Generate quiz function when start button is clicked
 function generateQuiz() {
@@ -88,24 +103,26 @@ function displayQuestion() {
     var dataKey = document.querySelector("data-key");
     var dataCorrect = document.querySelector("data-correct");
     function selectAnswer(event) {
+        event.preventDefault();
         // When data selected is correct, console logs that it's correct
         if (event.target.dataset.key === event.target.dataset.correct) {
             var correctAnswerAlert = document.createElement("p");
             correctAnswerAlert.setAttribute("class", "correct-answer-alert");
             correctAnswerAlert.textContent = "Correct!";
-            answerContainer.appendChild(correctAnswerAlert);
+            quiz.appendChild(correctAnswerAlert);
             quizScore += 10;
-            console.log(quizScore);
+            setScore();
             nextQuestion();
         // When data selected is incorrect, sonsole logs that it's not correct    
         } else {
             var incorrectAnswerAlert = document.createElement("p");
             incorrectAnswerAlert.setAttribute("class", "incorrect-answer-alert");
             incorrectAnswerAlert.textContent = "Incorrect!";
-            answerContainer.appendChild(incorrectAnswerAlert);
+            quiz.appendChild(incorrectAnswerAlert);
             quizScore -= 5;
             console.log(quizScore);
             secondsLeft -= 10;
+            setScore();
             nextQuestion();
         };
     };
@@ -125,7 +142,20 @@ function displayQuestion() {
     }
 };
 
+function setScore() {
+    savedResults.textContent = quizScore;
+    localStorage.setItem("quizResults", quizScore);
+}
 
+function getScore() {
+    var storedScore = localStorage.getItem("quizResults");
+    if (storedScore === null) {
+        quizScore = 0;
+    } else {
+        quizScore = storedScore;
+    }
+}
 
+init();
 
 startBtn.addEventListener("click", generateQuiz);
