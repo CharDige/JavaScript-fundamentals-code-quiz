@@ -87,6 +87,7 @@ function displayQuestion() {
             answerContainer.appendChild(correctAnswerAlert);
             quizScore += 10;
             console.log(quizScore);
+            nextQuestion();
         // When data selected is incorrect, sonsole logs that it's not correct    
         } else {
             var incorrectAnswerAlert = document.createElement("p");
@@ -96,6 +97,7 @@ function displayQuestion() {
             quizScore -= 5;
             console.log(quizScore);
             secondsLeft -= 10;
+            nextQuestion();
         };
     };
     // Button answers
@@ -106,6 +108,11 @@ function displayQuestion() {
 
 function nextQuestion() {
     currentQuestionIndex++;
+    questionContainer.removeChild(questionContainer.firstElementChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    answerContainer.removeChild(answerContainer.firstChild);
     displayQuestion();
 }
 
