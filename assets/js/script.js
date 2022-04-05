@@ -82,6 +82,7 @@ function displayQuestion() {
         // When data selected is correct, console logs that it's correct
         if (event.target.dataset.key === event.target.dataset.correct) {
             var correctAnswerAlert = document.createElement("p");
+            correctAnswerAlert.setAttribute("class", "correct-answer-alert");
             correctAnswerAlert.textContent = "Correct!";
             answerContainer.appendChild(correctAnswerAlert);
             quizScore += 10;
@@ -89,10 +90,12 @@ function displayQuestion() {
         // When data selected is incorrect, sonsole logs that it's not correct    
         } else {
             var incorrectAnswerAlert = document.createElement("p");
+            incorrectAnswerAlert.setAttribute("class", "incorrect-answer-alert");
             incorrectAnswerAlert.textContent = "Incorrect!";
             answerContainer.appendChild(incorrectAnswerAlert);
             quizScore -= 5;
             console.log(quizScore);
+            secondsLeft -= 10;
         };
     };
     // Button answers
