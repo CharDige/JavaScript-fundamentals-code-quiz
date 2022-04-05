@@ -29,6 +29,15 @@ var quizQuestions = [
             d: "All of the above"
         },
         correctAnswer: "d"
+    },
+    {
+        question: "How can we define objects?",
+        answers: {
+            a: "Objects are reusable blocks of code that perform a specific task",
+            b: "Objects are a collection of properties",
+            c: "Objects iterate over arrays",
+            d: "Objects replace variable names and returns new strings"
+        },
     }
 ];
 
@@ -104,17 +113,19 @@ function displayQuestion() {
     for (var i = 0; i < answerBtns.length; i++) {
         answerBtns[i].addEventListener("click", selectAnswer);
     }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        questionContainer.removeChild(questionContainer.firstElementChild);
+        answerContainer.removeChild(answerContainer.firstChild);
+        answerContainer.removeChild(answerContainer.firstChild);
+        answerContainer.removeChild(answerContainer.firstChild);
+        answerContainer.removeChild(answerContainer.firstChild);
+        displayQuestion();
+    }
 };
 
-function nextQuestion() {
-    currentQuestionIndex++;
-    questionContainer.removeChild(questionContainer.firstElementChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    displayQuestion();
-}
+
 
 
 startBtn.addEventListener("click", generateQuiz);
