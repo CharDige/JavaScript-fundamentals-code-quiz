@@ -51,8 +51,6 @@ var quizQuestions = [
 
 ];
 
-console.log(quizScore);
-
 // init function is called when the page loads
 function init() {
     getScore();
@@ -103,7 +101,6 @@ function displayQuestion() {
     var dataKey = document.querySelector("data-key");
     var dataCorrect = document.querySelector("data-correct");
     function selectAnswer(event) {
-        event.preventDefault();
         // When data selected is correct, console logs that it's correct
         if (event.target.dataset.key === event.target.dataset.correct) {
             var correctAnswerAlert = document.createElement("p");
@@ -154,8 +151,9 @@ function getScore() {
     } else {
         quizScore = storedScore;
     }
+    savedResults.textContent = quizScore;
 }
 
-init();
-
 startBtn.addEventListener("click", generateQuiz);
+
+init();
