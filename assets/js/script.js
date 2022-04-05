@@ -32,9 +32,9 @@ var quizQuestions = [
     }
 ];
 
+console.log(quizScore);
 
-
-// Testing start button functionality
+// Generate quiz function when start button is clicked
 function generateQuiz() {
     startTimer();
     startBtn.classList.add("hide");
@@ -56,18 +56,50 @@ function startTimer() {
 };
 
 function displayQuestion() {
+    // Creating a paragraph element in HTML to contain question as per the current question index
     var questionEl = document.createElement("p");
     questionEl.textContent = quizQuestions[currentQuestionIndex].question;
     questionContainer.appendChild(questionEl);
+    // Creating elements within a for...in to loop through answers and append them on the page as buttons
     var answerText = "";
     for (var key in quizQuestions[currentQuestionIndex].answers) {
         answerText = quizQuestions[currentQuestionIndex].answers[key];
-        var answerEl = document.createElement("li");
+        var answerEl = document.createElement("button");
+        answerEl.setAttribute("class", "answer-button");
         answerEl.textContent = answerText;
+        answerEl.dataset.correct = quizQuestions[currentQuestionIndex].correctAnswer;
+        answerEl.dataset.key = key;
+        answerEl.dataset.pIndex = currentQuestionIndex;
+        answerEl.setAttribute("data-correct", quizQuestions[currentQuestionIndex].correctAnswer);
+        answerEl.setAttribute("data-key", key);
+        answerEl.setAttribute("data-pIndex", currentQuestionIndex);
         answerContainer.appendChild(answerEl);
     }
+    var answerBtns = document.querySelectorAll(".answer-button");
+    var dataKey = document.querySelector("data-key");
+    var dataCorrect = document.querySelector("data-correct");
+    function selectAnswer(event) {
+        // When data selected is correct, console logs that it's correct
+        if (event.target.dataset.key === event.target.dataset.correct) {
+            var correctAnswerAlert = document.createElement("p");
+            correctAnswerAlert.textContent = "Correct!";
+            answerContainer.appendChild(correctAnswerAlert);
+            quizScore += 10;
+            console.log(quizScore);
+        // When data selected is incorrect, sonsole logs that it's not correct    
+        } else {
+            var incorrectAnswerAlert = document.createElement("p");
+            incorrectAnswerAlert.textContent = "Incorrect!";
+            answerContainer.appendChild(incorrectAnswerAlert);
+            quizScore -= 5;
+            console.log(quizScore);
+        };
+    };
+    // Button answers
+    for (var i = 0; i < answerBtns.length; i++) {
+        answerBtns[i].addEventListener("click", selectAnswer);
+    }
 };
-
 
 function nextQuestion() {
     currentQuestionIndex++;
