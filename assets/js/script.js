@@ -112,6 +112,13 @@ var quizQuestions = [
     }
 ];
 
+// the init function is called when the page loads
+function init() {
+    savedResults.textContent = "Previous score"
+    getScore();
+}
+
+
 // Generate quiz function when start button is clicked
 function generateQuiz() {
     startTimer();
@@ -128,7 +135,12 @@ function startTimer() {
 
         if(secondsLeft <= 0) {
             clearInterval(timerInterval);
-            timerElement.textContent = "0";
+            timerElement.textContent = " ";
+            questionContainer.removeChild(questionContainer.firstElementChild);
+            answerContainer.removeChild(answerContainer.firstChild);
+            answerContainer.removeChild(answerContainer.firstChild);
+            answerContainer.removeChild(answerContainer.firstChild);
+            answerContainer.removeChild(answerContainer.firstChild);
             finishQuiz();
         }
     }, 1000);
@@ -209,12 +221,33 @@ function displayQuestion() {
     }
 
     // If user answers all questions before the timer goes down, quiz finishes
-    if (currentQuestionIndex === quizQuestions.length) {
-        finishQuiz();
-        secondsLeft = " ";
+    if (currentQuestionIndex === quizQuestions.length - 1) {
+        secondsLeft = 0;
     }
 };
 
+function setScore() {
+    var storedScore = {
+        input: input.value.trim(),
+        score: quizScore
+    };
+    // Store each element separately in local storage
+    localStorage.setItem("storedInitials", storedScore.input);
+    localStorage.setItem("storedScore", storedScore.score);
+}
+
+function getScore() {        
+    // Get data from storage to show user their score
+    var lastInitials = localStorage.getItem("storedInitials");
+    var lastScore = localStorage.getItem("storedScore")
+    var scoreList = document.createElement("div");
+    scoreList.setAttribute("class", "score-list");
+    savedResults.appendChild(scoreList);
+    var scoreListItems = document.createElement("p");
+    scoreListItems.setAttribute("class", "score-list-items");
+    scoreListItems.textContent = lastInitials + " " + lastScore;
+    scoreList.appendChild(scoreListItems);
+}
 
 function finishQuiz() {
     // Shows user their total score
@@ -243,32 +276,9 @@ function finishQuiz() {
     var submitBtn = document.getElementById("submit-btn");
     function submitScore() {
         setScore();
+        savedResults.textContent = "Score";
         getScore();
     };
-
-    function setScore() {
-        var storedScore = {
-            input: input.value.trim(),
-            score: quizScore
-        };
-        // Store each element separately in local storage
-        localStorage.setItem("storedInitials", storedScore.input);
-        localStorage.setItem("storedScore", storedScore.score);
-    }
-
-    function getScore() {        
-        // Get data from storage to show user their score
-        var lastInitials = localStorage.getItem("storedInitials");
-        var lastScore = localStorage.getItem("storedScore")
-        savedResults.textContent = "Score";
-        var scoreList = document.createElement("div");
-        scoreList.setAttribute("class", "score-list");
-        savedResults.appendChild(scoreList);
-        var scoreListItems = document.createElement("p");
-        scoreListItems.setAttribute("class", "score-list-items");
-        scoreListItems.textContent = lastInitials + " " + lastScore;
-        scoreList.appendChild(scoreListItems);
-    }
 
     // Submit button listener when user submits their initials in the input field
     submitBtn.addEventListener("click", submitScore);
@@ -276,4 +286,7 @@ function finishQuiz() {
 
 // Event listener for start button to generate the quiz
 startBtn.addEventListener("click", generateQuiz);
+
+// Calls init() so it initiates when the page is opened
+init();
 
