@@ -108,14 +108,9 @@ var quizQuestions = [
             c: "^=",
             d: "+="
         },
-        correctAnswer: "b"
+        correctAnswer: "a"
     }
 ];
-
-// init function is called when the page loads
-function init() {
-    getScore();
-}
 
 // Generate quiz function when start button is clicked
 function generateQuiz() {
@@ -131,9 +126,10 @@ function startTimer() {
         secondsLeft--;
         timerElement.textContent = secondsLeft;
 
-        if(secondsLeft === 0) {
+        if(secondsLeft <= 0) {
             clearInterval(timerInterval);
             console.log("Times up")
+            finishQuiz();
         }
     }, 1000);
 };
@@ -166,8 +162,13 @@ function displayQuestion() {
         if (event.target.dataset.key === event.target.dataset.correct) {
             var correctAnswerAlert = document.createElement("p");
             correctAnswerAlert.setAttribute("class", "correct-answer-alert");
+            correctAnswerAlert.setAttribute("id", "correct-answer");
             correctAnswerAlert.textContent = "Correct!";
             quiz.appendChild(correctAnswerAlert);
+            setTimeout(function() {
+                var removeCorrectAnswerAlert = document.getElementById("correct-answer");
+                removeCorrectAnswerAlert.parentNode.removeChild(removeCorrectAnswerAlert);
+            }, 2000);
             quizScore += 10;
             setScore();
             nextQuestion();
@@ -175,8 +176,13 @@ function displayQuestion() {
         } else {
             var incorrectAnswerAlert = document.createElement("p");
             incorrectAnswerAlert.setAttribute("class", "incorrect-answer-alert");
+            incorrectAnswerAlert.setAttribute("id", "incorrect-answer");
             incorrectAnswerAlert.textContent = "Incorrect!";
             quiz.appendChild(incorrectAnswerAlert);
+            setTimeout(function() {
+                var removeIncorrectAnswerAlert = document.getElementById("incorrect-answer");
+                removeIncorrectAnswerAlert.parentNode.removeChild(removeIncorrectAnswerAlert);
+            }, 2000);
             quizScore -= 5;
             console.log(quizScore);
             secondsLeft -= 10;
@@ -198,10 +204,14 @@ function displayQuestion() {
         answerContainer.removeChild(answerContainer.firstChild);
         displayQuestion();
     }
+
+    if (currentQuestionIndex === quizQuestions.length) {
+        finishQuiz();
+        secondsLeft = 0;
+    }
 };
 
 function setScore() {
-    savedResults.textContent = quizScore;
     localStorage.setItem("quizResults", quizScore);
 }
 
@@ -215,6 +225,32 @@ function getScore() {
     savedResults.textContent = quizScore;
 }
 
-startBtn.addEventListener("click", generateQuiz);
+function finishQuiz() {
+    questionContainer.removeChild(questionContainer.firstElementChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    answerContainer.removeChild(answerContainer.firstChild);
+    var labelInput = document.createElement("label");
+    labelInput.setAttribute("for", "initials");
+    labelInput.setAttribute("id", "label-input")
+    labelInput.textContent = "Enter your initials to submit your score";
+    savedResults.appendChild(labelInput);
+    var inputEl = document.createElement("input");
+    inputEl.setAttribute("type", "text");
+    inputEl.setAttribute("id", "input");
+    inputEl.setAttribute("name", "input");
+    savedResults.appendChild(inputEl);
+    var submitInput = document.createElement("input");
+    submitInput.setAttribute("type", "button");
+    submitInput.setAttribute("value", "Submit");
+    submitInput.setAttribute("id", "submit-btn");
+    savedResults.appendChild(submitInput);
+    var submitBtn = document.getElementById("submit-btn");
+    function submitScore() {
+        getScore();
+    };
+    submitBtn.addEventListener("click", submitScore);
+}
 
-init();
+startBtn.addEventListener("click", generateQuiz);
