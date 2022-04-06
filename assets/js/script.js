@@ -198,7 +198,6 @@ function displayQuestion() {
                 removeIncorrectAnswerAlert.parentNode.removeChild(removeIncorrectAnswerAlert);
             }, 2000);
             quizScore -= 5;
-            console.log(quizScore);
             secondsLeft -= 10;
             nextQuestion();
         };
@@ -278,7 +277,20 @@ function finishQuiz() {
         setScore();
         savedResults.textContent = "Score";
         getScore();
+        var restartQuiz = document.createElement("button");
+        restartQuiz.setAttribute("id", "restart-btn");
+        savedResults.appendChild(restartQuiz);
+        var restartBtn = document.getElementById("restart-btn");
+        restartBtn.textContent = "Restart";
+        restartBtn.addEventListener("click", restart);
     };
+
+    function restart() {
+        currentQuestionIndex = 0;
+        secondsLeft = 60;
+        generateQuiz();
+        init();
+    }
 
     // Submit button listener when user submits their initials in the input field
     submitBtn.addEventListener("click", submitScore);
