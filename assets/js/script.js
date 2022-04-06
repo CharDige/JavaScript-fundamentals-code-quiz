@@ -11,17 +11,17 @@ var currentQuestionIndex = 0;
 // Array of questions that will be asked and the correct answers
 var quizQuestions = [
     {
-        question: "What of the following is NOT a common data type?",
+        question: "1. What of the following is NOT a common data type?",
         answers: {
           a: "Boolean",
           b: "Number",
           c: "Justification",
-          d: "String"  ,
+          d: "String"
         },
         correctAnswer: "c"
     },
     {
-        question: "Arrays can be used to store:",
+        question: "2. Arrays can be used to store:",
         answers: {
             a: "Strings and numbers",
             b: "Other arrays",
@@ -31,24 +31,85 @@ var quizQuestions = [
         correctAnswer: "d"
     },
     {
-        question: "How can we define objects?",
+        question: "3. How can we define objects?",
         answers: {
             a: "Objects are reusable blocks of code that perform a specific task",
             b: "Objects are a collection of properties",
             c: "Objects iterate over arrays",
             d: "Objects replace variable names and returns new strings"
         },
+        correctAnswer: "b"
     },
     {
-        question: "Example question",
+        question: "4. Console logs:",
         answers: {
-            a: "example 1",
-            b: "example 2",
-            c: "example 3",
-            d: "example 4",
-        }
+            a: "Write data directly to the console",
+            b: "Are used to log into and out of a console",
+            c: "Store groups of data in a single variable",
+            d: "Are a primitive type of data"
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "5. Arithmetic operators",
+        answers: {
+            a: "Combine with string, Booleans and numbers to form an expression that evaluates to true or false",
+            b: "Take in two or more expressions and return true or false",
+            c: "Combine with numbers to form an expression that returns a single number",
+            d: "Compares equality and type (strict equality)"
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "6. Comparison operators",
+        answers: {
+            a: "Combine with numbers to form an expression that returns a single number",
+            b: "Combine with strings, booleans and numbers to form an expression that evaluates to true or false",
+            c: "Take in two or more expressions and return true or false",
+            d: "Are reusable blocks of code that perform a specific task"
+        },
+        correctAnswer: "b"
+    },
+    {
+        question: "7. What does === mean?",
+        answers: {
+            a: "Compares equality and type (strict equality)",
+            b: "Provides a result three times",
+            c: "A way to break up code in the JavaScript to look clean",
+            d: "Iterates over arrays"
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "8. How do you leave single-line comments in JavaScript files?",
+        answers: {
+            a: "&",
+            b: "**",
+            c: "//",
+            d: "==="
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "9. What is JavaScript sometimes shortened to?",
+        answers: {
+            a: "Java",
+            b: "JVSCRPT",
+            c: "Scripty",
+            d: "JS"
+        },
+        correctAnswer: "d"
+    },
+    {
+        question: "10. What symbols are used to show greater than or equal to?",
+        answers: {
+            a: ">=",
+            b: "<=",
+            c: "^=",
+            d: "+="
+        },
+        correctAnswer: "b"
     }
-
 ];
 
 // init function is called when the page loads
