@@ -185,7 +185,11 @@ function displayQuestion() {
                 removeCorrectAnswerAlert.parentNode.removeChild(removeCorrectAnswerAlert);
             }, 2000);
             quizScore += 10;
-            nextQuestion();
+            if (currentQuestionIndex === 9) {
+                secondsLeft = 0;
+            } else {
+                nextQuestion();
+            }
         // When data selected is incorrect, user is alerted that the answer is incorrect, they lose 10 seconds to the total time and their quiz score goes down by 5. Then, the next question appears
         } else {
             var incorrectAnswerAlert = document.createElement("p");
@@ -199,7 +203,11 @@ function displayQuestion() {
             }, 2000);
             quizScore -= 5;
             secondsLeft -= 10;
-            nextQuestion();
+            if (currentQuestionIndex === 9) {
+                secondsLeft = 0;
+            } else {
+                nextQuestion();
+            }
         };
     };
     // Including event listeners to all answer buttons
@@ -217,11 +225,6 @@ function displayQuestion() {
         answerContainer.removeChild(answerContainer.firstChild);
         answerContainer.removeChild(answerContainer.firstChild);
         displayQuestion();
-    }
-
-    // If user answers all questions before the timer goes down, quiz finishes
-    if (currentQuestionIndex === quizQuestions.length - 1) {
-        secondsLeft = 0;
     }
 };
 
@@ -288,7 +291,7 @@ function finishQuiz() {
     function restart() {
         currentQuestionIndex = 0;
         secondsLeft = 60;
-        generateQuiz();
+        startBtn.classList.remove("hide");
         init();
     }
 
