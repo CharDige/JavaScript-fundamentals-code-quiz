@@ -128,7 +128,7 @@ function startTimer() {
 
         if(secondsLeft <= 0) {
             clearInterval(timerInterval);
-            console.log("Times up")
+            timerElement.textContent = "0";
             finishQuiz();
         }
     }, 1000);
@@ -154,11 +154,14 @@ function displayQuestion() {
         answerEl.setAttribute("data-pIndex", currentQuestionIndex);
         answerContainer.appendChild(answerEl);
     }
+
     var answerBtns = document.querySelectorAll(".answer-button");
     var dataKey = document.querySelector("data-key");
     var dataCorrect = document.querySelector("data-correct");
+
+    // Function for when buttons are clicked
     function selectAnswer(event) {
-        // When data selected is correct, console logs that it's correct
+        // When button selected is correct, user is alerted that the answer is correct and their quiz score goes up by 10, then the next question appears
         if (event.target.dataset.key === event.target.dataset.correct) {
             var correctAnswerAlert = document.createElement("p");
             correctAnswerAlert.setAttribute("class", "correct-answer-alert");
@@ -170,9 +173,8 @@ function displayQuestion() {
                 removeCorrectAnswerAlert.parentNode.removeChild(removeCorrectAnswerAlert);
             }, 2000);
             quizScore += 10;
-            setScore();
             nextQuestion();
-        // When data selected is incorrect, sonsole logs that it's not correct    
+        // When data selected is incorrect, user is alerted that the answer is incorrect, they lose 10 seconds to the total time and their quiz score goes down by 5. Then, the next question appears
         } else {
             var incorrectAnswerAlert = document.createElement("p");
             incorrectAnswerAlert.setAttribute("class", "incorrect-answer-alert");
@@ -186,17 +188,18 @@ function displayQuestion() {
             quizScore -= 5;
             console.log(quizScore);
             secondsLeft -= 10;
-            setScore();
             nextQuestion();
         };
     };
-    // Button answers
+    // Including event listeners to all answer buttons
     for (var i = 0; i < answerBtns.length; i++) {
         answerBtns[i].addEventListener("click", selectAnswer);
     }
 
     function nextQuestion() {
+        // Go to the next question by increasing currentQuestionIndex by 1
         currentQuestionIndex++;
+        // Remove previous question and answer buttons before displaying the next question and answer buttons
         questionContainer.removeChild(questionContainer.firstElementChild);
         answerContainer.removeChild(answerContainer.firstChild);
         answerContainer.removeChild(answerContainer.firstChild);
@@ -205,32 +208,22 @@ function displayQuestion() {
         displayQuestion();
     }
 
+    // If user answers all questions before the timer goes down, quiz finishes
     if (currentQuestionIndex === quizQuestions.length) {
         finishQuiz();
-        secondsLeft = 0;
+        secondsLeft = " ";
     }
 };
 
-function setScore() {
-    localStorage.setItem("quizResults", quizScore);
-}
-
-function getScore() {
-    var storedScore = localStorage.getItem("quizResults");
-    if (storedScore === null) {
-        quizScore = 0;
-    } else {
-        quizScore = storedScore;
-    }
-    savedResults.textContent = quizScore;
-}
 
 function finishQuiz() {
-    questionContainer.removeChild(questionContainer.firstElementChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    answerContainer.removeChild(answerContainer.firstChild);
-    answerContainer.removeChild(answerContainer.firstChild);
+    // Shows user their total score
+    var showScore = document.createElement("p");
+    showScore.setAttribute("class", "show-score");
+    showScore.textContent = "Your score: " + quizScore;
+    savedResults.appendChild(showScore);
+
+    // Provides input field for user to input their initials
     var labelInput = document.createElement("label");
     labelInput.setAttribute("for", "initials");
     labelInput.setAttribute("id", "label-input")
@@ -241,6 +234,7 @@ function finishQuiz() {
     inputEl.setAttribute("id", "input");
     inputEl.setAttribute("name", "input");
     savedResults.appendChild(inputEl);
+    // Submit button for input field
     var submitInput = document.createElement("input");
     submitInput.setAttribute("type", "button");
     submitInput.setAttribute("value", "Submit");
@@ -248,9 +242,38 @@ function finishQuiz() {
     savedResults.appendChild(submitInput);
     var submitBtn = document.getElementById("submit-btn");
     function submitScore() {
+        setScore();
         getScore();
     };
+
+    function setScore() {
+        var storedScore = {
+            input: input.value.trim(),
+            score: quizScore
+        };
+        // Store each element separately in local storage
+        localStorage.setItem("storedInitials", storedScore.input);
+        localStorage.setItem("storedScore", storedScore.score);
+    }
+
+    function getScore() {        
+        // Get data from storage to show user their score
+        var lastInitials = localStorage.getItem("storedInitials");
+        var lastScore = localStorage.getItem("storedScore")
+        savedResults.textContent = "Score";
+        var scoreList = document.createElement("div");
+        scoreList.setAttribute("class", "score-list");
+        savedResults.appendChild(scoreList);
+        var scoreListItems = document.createElement("p");
+        scoreListItems.setAttribute("class", "score-list-items");
+        scoreListItems.textContent = lastInitials + " " + lastScore;
+        scoreList.appendChild(scoreListItems);
+    }
+
+    // Submit button listener when user submits their initials in the input field
     submitBtn.addEventListener("click", submitScore);
 }
 
+// Event listener for start button to generate the quiz
 startBtn.addEventListener("click", generateQuiz);
+
