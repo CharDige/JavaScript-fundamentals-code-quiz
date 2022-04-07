@@ -114,7 +114,7 @@ var quizQuestions = [
 
 // the init function is called when the page loads
 function init() {
-    savedResults.textContent = "Previous score"
+    savedResults.textContent = "Previous scores"
     getScore();
 }
 
@@ -236,6 +236,18 @@ function displayQuestion() {
     }
 };
 
+function readScoreLocalStorage() {
+    var savedScores = JSON.parse(localStorage.getItem("savedScores"));
+    if (!savedScores) {
+        return [];
+    }
+    return savedScores;
+}
+
+function savingLocalStorage(highscores) {
+    localStorage.setItem("savedScores", JSON.stringify(highscores));
+}
+
 function setScore() {
     var storedScore = {
         input: input.value.trim(),
@@ -243,9 +255,10 @@ function setScore() {
     };
     var letters = /^[A-Za-z]+$/;
     if (input.value.match(letters)) {
+        var existingHighScore = readScoreLocalStorage();
         // Store each element separately in local storage
-        localStorage.setItem("storedInitials", storedScore.input);
-        localStorage.setItem("storedScore", storedScore.score);
+        existingHighScore.push(storedScore);
+        savingLocalStorage(existingHighScore);
         savedResults.textContent = "Score";
         getScore();
     
@@ -257,37 +270,40 @@ function setScore() {
 
 function getScore() {        
     // Get data from storage to show user their score
-    var lastInitials = localStorage.getItem("storedInitials");
-    var lastScore = localStorage.getItem("storedScore")
     var scoreList = document.createElement("div");
     scoreList.setAttribute("class", "score-list");
     savedResults.appendChild(scoreList);
-    var scoreListItems = document.createElement("p");
-    scoreListItems.setAttribute("class", "score-list-items");
+    var highScores = readScoreLocalStorage();
+
 
     // If there is nothing stored in local storage, shows a message
-    if (lastScore === null && lastInitials === null) {
-        scoreListItems.textContent = "No previous score. Start the quiz and try and get the best score!";
+    if (highScores.length === 0) {
+        scoreList.textContent = "No previous score. Start the quiz and try and get the best score!";
 
     // If there is something stored in local storage
     } else {
+        // Loop through what's in local storage and create a new item in a list
+        for (var i = 0; i < highScores.length; i++) {
+            var scoreListItems = document.createElement("p");
+            scoreListItems.setAttribute("class", "score-list-items");
+            scoreListItems.textContent = highScores[i].input + " " + highScores[i].score;
+            scoreList.appendChild(scoreListItems);
+        }
+        // Create reset button, which will remove stored data when clicked
         var resetQuiz = document.createElement("button");
         resetQuiz.setAttribute("id", "reset-btn");
         savedResults.appendChild(resetQuiz);
         var resetBtn = document.getElementById("reset-btn");
         resetBtn.textContent = "Reset score";
-        scoreListItems.textContent = lastInitials + " " + lastScore;
         resetBtn.classList.remove("hide");
         resetBtn.addEventListener("click", reset);
         function reset() {
             // Removes the stored data
-            localStorage.removeItem("storedInitials");
-            localStorage.removeItem("storedScore");
-            scoreListItems.textContent = "No previous score. Start the quiz and try and get the best score!";
+            localStorage.removeItem("savedScores");
+            scoreList.textContent = "No previous score. Start the quiz and try and get the best score!";
             document.getElementById("reset-btn").disabled = true;
         };
     }
-    scoreList.appendChild(scoreListItems);
 }
 
 function finishQuiz() {
