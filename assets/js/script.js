@@ -247,7 +247,17 @@ function getScore() {
     savedResults.appendChild(scoreList);
     var scoreListItems = document.createElement("p");
     scoreListItems.setAttribute("class", "score-list-items");
-    scoreListItems.textContent = lastInitials + " " + lastScore;
+    if (lastScore === null && lastInitials === null) {
+        scoreListItems.textContent = "No previous score. Start the quiz and try and get the best score!";
+    } else {
+        var resetQuiz = document.createElement("button");
+        resetQuiz.setAttribute("id", "reset-btn");
+        savedResults.appendChild(resetQuiz);
+        var resetBtn = document.getElementById("reset-btn");
+        resetBtn.textContent = "Reset score & restart the quiz";
+        scoreListItems.textContent = lastInitials + " " + lastScore;
+        resetBtn.addEventListener("click", reset);
+    }
     scoreList.appendChild(scoreListItems);
 }
 
@@ -284,16 +294,17 @@ function finishQuiz() {
         restartQuiz.setAttribute("id", "restart-btn");
         savedResults.appendChild(restartQuiz);
         var restartBtn = document.getElementById("restart-btn");
-        restartBtn.textContent = "Restart";
+        restartBtn.textContent = "Restart the quiz";
         restartBtn.addEventListener("click", restart);
     };
 
     function restart() {
+        // Restarts the quiz with previous score stored
         currentQuestionIndex = 0;
         secondsLeft = 60;
         startBtn.classList.remove("hide");
         init();
-    }
+    };
 
     // Submit button listener when user submits their initials in the input field
     submitBtn.addEventListener("click", submitScore);
@@ -304,4 +315,15 @@ startBtn.addEventListener("click", generateQuiz);
 
 // Calls init() so it initiates when the page is opened
 init();
+
+
+function reset() {
+    // Removes the stored data and restarts the quiz with no previous score
+    localStorage.removeItem("storedInitials");
+    localStorage.removeItem("storedScore");
+    currentQuestionIndex = 0;
+    secondsLeft = 60;
+    startBtn.classList.remove("hide");
+    init();
+}
 
