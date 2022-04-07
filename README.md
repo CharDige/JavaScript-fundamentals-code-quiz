@@ -30,15 +30,15 @@ By doing this, it really helped me in identifying exactly what issues I was faci
 
 Here are some steps I took that highlight my small steps:
 
-1. Initial testing of the generate quiz function using console logs, which then I added in the timer, which I tested through the console log as well
+1. Initial testing of the generate quiz function using console logs, then adding in the timer, which I tested through the console log as well
 2. Focussed on the functionality to display the quiz through a `displayQuestion` function. I added two questions to test the process, so I could incorporate the `for...in` loop and test it.
 3. Added in functions around selecting answers and displaying the next question, making minor adjustments so that when I got the function to work, I could add another aspect. For example, getting the next question and answers to show first, then adjusting the code to remove the previous question and answers.
 4. Once a function worked, I would move to the next function, map out what I needed it to achieve, and then test it. In most cases, I needed to adjust other code or rearrange it. I knew minor bugs were popping up, but I left fixing these till the end.
-5. Once I got to the final moments, I identified the little bugs that were popping up and spent time researching to find solutions as well as reaching out for help.
+5. Once I got to the final parts, I identified the little bugs that were popping up and spent time researching to find solutions as well as reaching out for help.
 6. Once the functionality was all fixed and working as it needed to, I then spent the time on my CSS file, going through each step slowly to ensure the styles worked with the functionality and were responsive.
 
 ## Final
-(ENTER GIF OF FUNCTIONALITY)
+![Run through of JavaScript code quiz](./images/code-quiz-functionality.gif)
 
 This can also be viewed at this link: https://chardige.github.io/JavaScript-fundamentals-code-quiz/
 
@@ -46,13 +46,28 @@ And, the HTML, CSS and JavaScript can be viewed in the GitHub repository: https:
 
 ## Challenges
 
-As mentioned in the process section, this was by far the most challenging projects. Below is a list of the challenges I faced, which I'm proud to have overcome through many hours of research:
+As mentioned in the process section, this was by far the most challenging project so far. Below is a list of the challenges I faced, which I'm proud to have overcome through many hours of research:
 
 - Understanding how `for...in` loops work to display items within objects, and then understanding how to use these loops to display an array within an object while also allocating them with specific data so they could be distinguished between a correct answer and an incorrect answer.
 - Using local storage within a conditional statement so that an alert would pop up, and then ensuring that closing the alert would take the user back to the right place.
-- The process of storing objects within local storage to then get each individual item within the storage and display them as a list.
-- Disabling a button that only gets appended later in the function, so finding away to avoid an error until that point.
-- Using a `for` loop so multiple answer buttons on the same event listener wouold have different results depending on if the answer was correct or incorrect.
+- The process of storing objects within local storage and then getting each individual item within the storage and displaying them as a list.
+- Disabling a button that only gets appended later in the function, so finding a way to avoid an error until that point.
+- Using a `for` loop so multiple answer buttons on the same event listener would have different results depending on if the answer was correct or incorrect.
+
+Below are some pieces of code which show how I overcame these challenges:
+
+`for...in` loop to go through questions and answers within an object
+
+![JavaScript showing for...in loop to loop through questions and answers](./images/screenshot-for-in.PNG)
+
+`for` loop for answer buttons
+
+![JavaScript showing for loop to loop through answer buttons](./images/screenshot-for-loop.PNG)
+
+Using a conditional statement and a `for` loop to get the items out of the local storage and display them in a list
+
+![JavaScript showing for loop to get item out of local storage and display them in a list](./images/screenshot-storage.PNG)
+
 
 ## What I learnt
  
