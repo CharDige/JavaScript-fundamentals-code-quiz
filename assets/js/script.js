@@ -123,6 +123,7 @@ function init() {
 function generateQuiz() {
     startTimer();
     startBtn.classList.add("hide");
+    document.getElementById("reset-btn").disabled = true;
     displayQuestion();
     console.log("This works!")
 };
@@ -254,9 +255,17 @@ function getScore() {
         resetQuiz.setAttribute("id", "reset-btn");
         savedResults.appendChild(resetQuiz);
         var resetBtn = document.getElementById("reset-btn");
-        resetBtn.textContent = "Reset score & restart the quiz";
+        resetBtn.textContent = "Reset score";
         scoreListItems.textContent = lastInitials + " " + lastScore;
+        resetBtn.classList.remove("hide");
         resetBtn.addEventListener("click", reset);
+        function reset() {
+            // Removes the stored data
+            localStorage.removeItem("storedInitials");
+            localStorage.removeItem("storedScore");
+            scoreListItems.textContent = "No previous score. Start the quiz and try and get the best score!";
+            document.getElementById("reset-btn").disabled = true;
+        };
     }
     scoreList.appendChild(scoreListItems);
 }
@@ -303,6 +312,7 @@ function finishQuiz() {
         currentQuestionIndex = 0;
         secondsLeft = 60;
         startBtn.classList.remove("hide");
+        document.getElementById("reset-btn").disabled = true;
         init();
     };
 
@@ -315,15 +325,3 @@ startBtn.addEventListener("click", generateQuiz);
 
 // Calls init() so it initiates when the page is opened
 init();
-
-
-function reset() {
-    // Removes the stored data and restarts the quiz with no previous score
-    localStorage.removeItem("storedInitials");
-    localStorage.removeItem("storedScore");
-    currentQuestionIndex = 0;
-    secondsLeft = 60;
-    startBtn.classList.remove("hide");
-    init();
-}
-
