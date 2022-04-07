@@ -292,6 +292,7 @@ function getScore() {
 
 function finishQuiz() {
     // Shows user their total score
+    savedResults.textContent = "";
     var showScore = document.createElement("p");
     showScore.setAttribute("class", "show-score");
     showScore.textContent = "Your score: " + quizScore;
