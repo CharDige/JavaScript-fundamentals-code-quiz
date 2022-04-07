@@ -116,6 +116,24 @@ header p {
     box-shadow: 0 0 10px 10px var(--button-hover);
 }
 
+/* Incorrect answer alert styling */
+.incorrect-answer-alert {
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #960202;
+}
+
+/* Correct answer alert styling */
+.correct-answer-alert {
+    font-family: var(--main-font-family);
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #009914;
+}
+
 /* Quiz timer styling */
 .quiz-timer {
     display: flex;
@@ -137,13 +155,14 @@ header p {
     text-align: center;
     margin: 20px;
     font-family: var(--main-font-family);
-    font-size: 25px;
+    font-size: 40px;
     font-weight: bold;
 }
 
 .score-list-items {
     font-weight: initial;
     margin: 10px;
+    font-size: 35px;
 }
 
 /* Show results styling */
@@ -155,14 +174,62 @@ header p {
 
 label {
     margin-bottom: 20px;
+    font-size: 35px;
 }
 
 #input {
     padding: 15px 30px;
     text-align: center;
+    font-size: 35px;
 }
 
+/* Submit button styling */
 #submit-btn {
     margin: 20px;
     padding: 15px 25px 15px 25px;
+    background-color: var(--button-color);
+    color: var(--light-color);
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 35px;
+}
+
+#submit-btn:hover {
+    box-shadow: 0 0 10px 10px var(--button-hover);
+}
+
+/* Reset score button */
+#reset-btn {
+    margin: 20px;
+    padding: 10px 15px;
+    background-color: var(--button-color);
+    color: var(--light-color);
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 35px;
+}
+
+#reset-btn:hover {
+    box-shadow: 0 0 10px 10px var(--button-hover);
+}
+
+#reset-btn:disabled, #reset-btn[disabled] {
+    cursor: auto;
+    box-shadow: 0 0 0 0;
+    background-color: var(--button-hover);
+}
+
+/* Restart quiz button styling */
+#restart-btn {
+margin: 20px;
+padding: 10px 15px;
+background-color: var(--button-color);
+color: var(--light-color);
+border-radius: 15px;
+cursor: pointer;
+font-size: 35px;
+};
+
+#restart-btn:hover {
+    box-shadow: 0 0 10px 10px var(--button-hover);
 }
