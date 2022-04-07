@@ -190,7 +190,7 @@ function displayQuestion() {
             setTimeout(function() {
                 var removeCorrectAnswerAlert = document.getElementById("correct-answer");
                 removeCorrectAnswerAlert.parentNode.removeChild(removeCorrectAnswerAlert);
-            }, 2000);
+            }, 1000);
             quizScore += 10;
             if (currentQuestionIndex === 9) {
                 secondsLeft = 0;
@@ -205,9 +205,9 @@ function displayQuestion() {
             incorrectAnswerAlert.textContent = "Incorrect!";
             quiz.appendChild(incorrectAnswerAlert);
             setTimeout(function() {
-                var removeIncorrectAnswerAlert = document.getElementById("incorrect-answer");
+               var removeIncorrectAnswerAlert = document.getElementById("incorrect-answer");
                 removeIncorrectAnswerAlert.parentNode.removeChild(removeIncorrectAnswerAlert);
-            }, 2000);
+            }, 1000);
             quizScore -= 5;
             secondsLeft -= 10;
             if (currentQuestionIndex === 9) {
