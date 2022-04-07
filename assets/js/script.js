@@ -123,9 +123,15 @@ function init() {
 function generateQuiz() {
     startTimer();
     startBtn.classList.add("hide");
-    document.getElementById("reset-btn").disabled = true;
     displayQuestion();
-    console.log("This works!")
+    // If no reset button available, return a console log when the start button is clicked
+    if (document.getElementById("reset-btn") === null) {
+        console.log("No reset button!")
+    
+    // If there is a reset button available, disable it when the start button is clicked
+    } else {
+        document.getElementById("reset-btn").disabled = true;
+    }
 };
 
 // When start button is pressed, the timer begins and starts to count down
@@ -133,7 +139,7 @@ function startTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerElement.textContent = secondsLeft;
-
+        // When the time reaches 0 or is deducted below 0, then questions and answers disappear and finishQuiz function is initiated    
         if(secondsLeft <= 0) {
             clearInterval(timerInterval);
             timerElement.textContent = " ";
@@ -211,7 +217,8 @@ function displayQuestion() {
             }
         };
     };
-    // Including event listeners to all answer buttons
+
+    // Event listeners to all answer buttons
     for (var i = 0; i < answerBtns.length; i++) {
         answerBtns[i].addEventListener("click", selectAnswer);
     }
@@ -234,9 +241,15 @@ function setScore() {
         input: input.value.trim(),
         score: quizScore
     };
-    // Store each element separately in local storage
-    localStorage.setItem("storedInitials", storedScore.input);
-    localStorage.setItem("storedScore", storedScore.score);
+    var letters = /^[A-Za-z]+$/;
+    if (input.value.match(letters)) {
+        // Store each element separately in local storage
+        localStorage.setItem("storedInitials", storedScore.input);
+        localStorage.setItem("storedScore", storedScore.score);
+    } else {
+        window.alert("Need to enter letters into input field");
+        return;
+    };
 }
 
 function getScore() {        
@@ -248,8 +261,12 @@ function getScore() {
     savedResults.appendChild(scoreList);
     var scoreListItems = document.createElement("p");
     scoreListItems.setAttribute("class", "score-list-items");
+
+    // If there is nothing stored in local storage, shows a message
     if (lastScore === null && lastInitials === null) {
         scoreListItems.textContent = "No previous score. Start the quiz and try and get the best score!";
+
+    // If there is something stored in local storage
     } else {
         var resetQuiz = document.createElement("button");
         resetQuiz.setAttribute("id", "reset-btn");
@@ -287,7 +304,9 @@ function finishQuiz() {
     inputEl.setAttribute("type", "text");
     inputEl.setAttribute("id", "input");
     inputEl.setAttribute("name", "input");
+    inputEl.setAttribute("maxlength", "2");
     savedResults.appendChild(inputEl);
+    
     // Submit button for input field
     var submitInput = document.createElement("input");
     submitInput.setAttribute("type", "button");
@@ -295,10 +314,14 @@ function finishQuiz() {
     submitInput.setAttribute("id", "submit-btn");
     savedResults.appendChild(submitInput);
     var submitBtn = document.getElementById("submit-btn");
+
+    // When submit button is clicked, the store is set and then retrieved to show the user.
     function submitScore() {
         setScore();
         savedResults.textContent = "Score";
         getScore();
+
+        // User is presented a restart button to restart the quiz
         var restartQuiz = document.createElement("button");
         restartQuiz.setAttribute("id", "restart-btn");
         savedResults.appendChild(restartQuiz);
