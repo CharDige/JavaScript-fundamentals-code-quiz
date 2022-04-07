@@ -278,7 +278,7 @@ function getScore() {
 
     // If there is nothing stored in local storage, shows a message
     if (highScores.length === 0) {
-        scoreList.textContent = "No previous score. Start the quiz and try and get the best score!";
+        scoreList.textContent = "No previous scores. Start the quiz and try and get the best score!";
 
     // If there is something stored in local storage
     } else {
@@ -300,7 +300,7 @@ function getScore() {
         function reset() {
             // Removes the stored data
             localStorage.removeItem("savedScores");
-            scoreList.textContent = "No previous score. Start the quiz and try and get the best score!";
+            scoreList.textContent = "No previous scores. Start the quiz and try and get the best score!";
             document.getElementById("reset-btn").disabled = true;
         };
     }
