@@ -246,6 +246,9 @@ function setScore() {
         // Store each element separately in local storage
         localStorage.setItem("storedInitials", storedScore.input);
         localStorage.setItem("storedScore", storedScore.score);
+        savedResults.textContent = "Score";
+        getScore();
+    
     } else {
         window.alert("Need to enter letters into input field");
         return;
@@ -318,9 +321,6 @@ function finishQuiz() {
     // When submit button is clicked, the store is set and then retrieved to show the user.
     function submitScore() {
         setScore();
-        savedResults.textContent = "Score";
-        getScore();
-
         // User is presented a restart button to restart the quiz
         var restartQuiz = document.createElement("button");
         restartQuiz.setAttribute("id", "restart-btn");
