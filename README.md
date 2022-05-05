@@ -4,7 +4,11 @@
 
 This project required the creation of a JavaScript code quiz. There was no starter code for this, so the project had to be created from scratch--all the HTML, CSS and JavaScript.
 
-The user story was:
+> The final project can be found at: https://chardige.github.io/JavaScript-fundamentals-code-quiz/
+
+> The final HTML, CSS and JavaScript can be found at: https://github.com/CharDige/JavaScript-fundamentals-code-quiz
+
+## User story
 
 ```
 AS A coding boot camp student
@@ -12,13 +16,26 @@ I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
 SO THAT I can gauge my progress compared to my peers
 ```
 
-There was also a number of acceptance criteria, particularly for the functionality of the page. This included functionality such as when clicking the start button, the user is presented with a question and a timer starts; when the user answers a question, then they're presented with another question; when the user answers incorrectly then time is deducted from their total time; and when all the answers are answered or when the timer reaches zero, the game is over and the user can save their initials and their score.
+## Acceptance criteria
 
-This was the most challenging assignment that I've undertaken so far and it really tested my knowledge on JavaScript. However, by the end of this assignment, I have learned a lot about the many different ways JavaScript can written.
+```
+GIVEN I am taking a code quiz
+WHEN I click the start button
+THEN a timer starts and I am presented with a question
+WHEN I answer a question
+THEN I am presented with another question
+WHEN I answer a question incorrectly
+THEN time is subtracted from the clock
+WHEN all questions are answered or the timer reaches 0
+THEN the game is over
+WHEN the game is over
+THEN I can save my initials and my score
+```
 
-> The final project can be found at: https://chardige.github.io/JavaScript-fundamentals-code-quiz/
-
-> The final HTML, CSS and JavaScript can be found at: https://github.com/CharDige/JavaScript-fundamentals-code-quiz
+## Technologies used
+- HTML
+- CSS
+- JavaScript
 
 ## The process -- how I overcame challenges
 
@@ -40,9 +57,9 @@ Here are some steps I took that highlight my small steps:
 ## Final
 ![Run through of JavaScript code quiz](./images/code-quiz-functionality.gif)
 
-This can also be viewed at this link: https://chardige.github.io/JavaScript-fundamentals-code-quiz/
+> The final project can be found at: https://chardige.github.io/JavaScript-fundamentals-code-quiz/
 
-And, the HTML, CSS and JavaScript can be viewed in the GitHub repository: https://github.com/CharDige/JavaScript-fundamentals-code-quiz
+> The final HTML, CSS and JavaScript can be found at: https://github.com/CharDige/JavaScript-fundamentals-code-quiz
 
 ## Challenges
 
