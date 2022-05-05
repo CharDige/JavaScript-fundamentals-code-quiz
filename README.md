@@ -124,6 +124,4 @@ W3 Schools (2022), *HTML DOM Element removeChild()*, W3 Schools, https://www.w3s
 
 ## License
 
-MIT License
-
-Copyright (C) 2022 Charlotte Dige
+[MIT License Copyright (C) 2022 Charlotte Dige](./LICENSE)
